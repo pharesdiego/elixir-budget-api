@@ -1,0 +1,26 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+@font-face {
+  font-family: "Alata";
+  src: url(/fonts/Alata-Regular.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pacifico";
+  src: url(/fonts/Pacifico-Regular.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "Alata";
+}
+
+.pacifico {
+  font-family: "Pacifico";
+}
