@@ -24,3 +24,17 @@
 .pacifico {
   font-family: "Pacifico";
 }
+.heading {
+  font-size: 1.25rem;
+  line-height: 27.6px;
+}
+
+.body {
+  font-size: 1rem;
+  line-height: 22.08px;
+}
+
+.body2 {
+  font-size: .875rem;
+  line-height: 19.32px;
+}
