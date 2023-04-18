@@ -25,6 +25,8 @@ defmodule PhoenixTodoWeb.Router do
 
     scope "/v1", Api.V1 do
       resources "/entries", EntryController, except: [:new, :edit]
+      resources "/categories", CategoryController, except: [:new, :edit]
+      resources "/accounts", AccountController, except: [:new, :edit]
     end
   end
 

@@ -1,0 +1,20 @@
+<ul>
+  <li :for={entry <- @entries} class="text-white">
+    <div class="flex mb-6 justify-between border-b-2 border-solid border-white">
+      <div>
+        12 Dec
+      </div>
+      <div class="w-full">
+        <p>
+          Food
+        </p>
+        <p>
+          <%= entry.description %>
+        </p>
+      </div>
+      <div>
+        <%= entry.amount %>
+      </div>
+    </div>
+  </li>
+</ul>

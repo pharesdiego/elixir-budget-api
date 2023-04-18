@@ -10,6 +10,9 @@ import Config
 config :phoenix_todo,
   ecto_repos: [PhoenixTodo.Repo]
 
+# Add prefix for mix phx.gen.json
+config :phoenix_todo, :generators, api_prefix: "/api/v1"
+
 # Configures the endpoint
 config :phoenix_todo, PhoenixTodoWeb.Endpoint,
   url: [host: "localhost"],
