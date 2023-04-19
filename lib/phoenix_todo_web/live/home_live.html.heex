@@ -1,6 +1,4 @@
-<ul>
-  <.list_item :for={entry <- @entries} entry={entry} />
-</ul>
+<.entries_list entries={@entries} />
 <button class="bg-white p-3" phx-click="new_entry">
   Add new entry
 </button>
