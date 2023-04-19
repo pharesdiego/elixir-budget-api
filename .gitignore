@@ -36,3 +36,8 @@ npm-debug.log
 /assets/node_modules/
 
 idea
+
+# Ignore SQLite DBs
+phoenix_todo_dev
+phoenix_todo_dev-shm
+phoenix_todo_dev-wal

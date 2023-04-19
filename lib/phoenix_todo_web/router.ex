@@ -14,11 +14,11 @@ defmodule PhoenixTodoWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PhoenixTodoWeb do
-    pipe_through :browser
+  # scope "/", PhoenixTodoWeb do
+  #   pipe_through :browser
 
-    live "/", HomeLive
-  end
+  #   live "/", HomeLive
+  # end
 
   scope "/api", PhoenixTodoWeb do
     pipe_through :api
