@@ -5,7 +5,7 @@ defmodule PhoenixTodoWeb.PageController do
     # The home page is often custom made,
     # so skip the default app layout.
     conn
-      |> assign(:entries, PhoenixTodo.Api.V1.Entries.list_entries())
-      |> render(:home)
+    |> put_resp_content_type("content-type", "application/json")
+    |> Plug.Conn.send_resp(200, "{}")
   end
 end
