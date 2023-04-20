@@ -6,8 +6,8 @@ defmodule PhoenixTodo.Repo.Migrations.CreateEntries do
       add :amount, :float
       add :date, :utc_datetime
       add :description, :string
-      add :account, :uuid
-      add :category, :uuid
+      add :account, :string
+      add :category, :string
 
       timestamps()
     end

@@ -7,6 +7,8 @@ defmodule PhoenixTodo.Api.V1.Entries do
   alias PhoenixTodo.Repo
 
   alias PhoenixTodo.Api.V1.Entries.Entry
+  alias PhoenixTodo.Api.V1.Categories.Category
+  alias PhoenixTodo.Api.V1.Accounts.Account
 
   @doc """
   Returns the list of entries.
@@ -18,7 +20,24 @@ defmodule PhoenixTodo.Api.V1.Entries do
 
   """
   def list_entries do
-    Repo.all(Entry)
+    alias PhoenixTodoWeb.Api.V1.CategoryJSON
+    alias PhoenixTodoWeb.Api.V1.AccountJSON
+
+    query =
+      from e in Entry,
+        join: cat in Category,
+        on: e.category == cat.id,
+        join: acc in Account,
+        on: e.account == acc.id,
+        select: %{e | category: cat, account: acc}
+
+    Repo.all(query)
+    |> Enum.map(
+      &Map.merge(&1, %{
+        category: CategoryJSON.show(%{category: &1.category}).data,
+        account: AccountJSON.show(%{account: &1.account}).data
+      })
+    )
   end
 
   @doc """
