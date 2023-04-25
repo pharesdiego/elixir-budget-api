@@ -6,8 +6,8 @@ defmodule PhoenixTodoWeb.Api.V1.EntryController do
 
   action_fallback PhoenixTodoWeb.FallbackController
 
-  def index(conn, _params) do
-    entries = Entries.list_entries()
+  def index(conn, params) do
+    entries = Entries.list_entries(params)
     render(conn, :index, entries: entries)
   end
 

@@ -9,6 +9,8 @@ defmodule PhoenixTodo.Api.V1.Entries do
   alias PhoenixTodo.Api.V1.Entries.Entry
   alias PhoenixTodo.Api.V1.Categories.Category
   alias PhoenixTodo.Api.V1.Accounts.Account
+  alias PhoenixTodoWeb.Api.V1.CategoryJSON
+  alias PhoenixTodoWeb.Api.V1.AccountJSON
 
   @doc """
   Returns the list of entries.
@@ -19,9 +21,9 @@ defmodule PhoenixTodo.Api.V1.Entries do
       [%Entry{}, ...]
 
   """
-  def list_entries do
-    alias PhoenixTodoWeb.Api.V1.CategoryJSON
-    alias PhoenixTodoWeb.Api.V1.AccountJSON
+  def list_entries(params) do
+    # We can use `with` and Date.new to only work with valid dates because
+    # Date.new returns {:error} if date not valid
 
     query =
       from e in Entry,
@@ -29,7 +31,17 @@ defmodule PhoenixTodo.Api.V1.Entries do
         on: e.category == cat.id,
         join: acc in Account,
         on: e.account == acc.id,
-        select: %{e | category: cat, account: acc}
+        select: %{e | category: cat, account: acc},
+        limit: 500,
+        order_by: [desc: e.date]
+
+    query =
+      case params do
+        %{"from" => from, "until" => until} -> from e in query, where: e.date >= ^from and e.date <= ^until
+        %{"from" => from} -> from e in query, where: e.date >= ^from
+        %{"until" => until} -> from e in query, where: e.date <= ^until
+        _ -> query
+      end
 
     Repo.all(query)
     |> Enum.map(
