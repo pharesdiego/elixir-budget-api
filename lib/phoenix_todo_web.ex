@@ -39,7 +39,7 @@ defmodule PhoenixTodoWeb do
   def controller do
     quote do
       use Phoenix.Controller,
-        formats: [:html, :json],
+        formats: [:html, :json, :csv],
         layouts: [html: PhoenixTodoWeb.Layouts]
 
       import Plug.Conn

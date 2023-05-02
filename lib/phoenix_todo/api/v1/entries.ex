@@ -22,9 +22,6 @@ defmodule PhoenixTodo.Api.V1.Entries do
 
   """
   def list_entries(params) do
-    # We can use `with` and Date.new to only work with valid dates because
-    # Date.new returns {:error} if date not valid
-
     query =
       from e in Entry,
         join: cat in Category,
@@ -35,13 +32,14 @@ defmodule PhoenixTodo.Api.V1.Entries do
         limit: 500,
         order_by: [desc: e.date]
 
-    query =
-      case params do
-        %{"from" => from, "until" => until} -> from e in query, where: e.date >= ^from and e.date <= ^until
-        %{"from" => from} -> from e in query, where: e.date >= ^from
-        %{"until" => until} -> from e in query, where: e.date <= ^until
-        _ -> query
-      end
+    query = params
+      |> Map.to_list()
+      |> Enum.reduce(query, fn
+        {"from", from}, query -> from e in query, where: e.date >= ^from
+        {"until", until}, query -> from e in query, where: e.date <= ^until
+        {"type", "expense"}, query -> from e in query, where: e.amount < 0
+        {"type", "income"}, query -> from e in query, where: e.amount > 0
+      end)
 
     Repo.all(query)
     |> Enum.map(

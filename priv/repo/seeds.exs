@@ -87,12 +87,12 @@ defmodule SeedEntries do
     categories = Repo.all(Category) |> Enum.map(& &1.id)
     accounts = Repo.all(Account) |> Enum.map(& &1.id)
 
-    for _ <- 0..99 do
+    for _ <- 0..999 do
       %{
         date:
           Faker.DateTime.between(
-            DateTime.add(DateTime.utc_now(), -100, :day),
-            DateTime.add(DateTime.utc_now(), 100, :day)
+            DateTime.add(DateTime.utc_now(), -300, :day),
+            DateTime.add(DateTime.utc_now(), 300, :day)
           ),
         amount: :random.uniform(100000) / 100 * Enum.random([1, -1]),
         description: Faker.Lorem.paragraph(1..3),

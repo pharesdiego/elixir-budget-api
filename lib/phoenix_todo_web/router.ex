@@ -11,7 +11,7 @@ defmodule PhoenixTodoWeb.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug :accepts, ["json", "csv"]
   end
 
   scope "/", PhoenixTodoWeb do
