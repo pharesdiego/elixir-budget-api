@@ -40,4 +40,15 @@ defmodule PhoenixTodoWeb.Api.V1.EntryController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def export(conn, params) do
+    entries = Entries.list_entries(params)
+
+    conn
+    |> put_resp_header(
+      "content-disposition",
+      "attachment; filename=\"export.#{get_format(conn)}\""
+    )
+    |> render(:index, entries: entries)
+  end
 end

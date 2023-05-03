@@ -27,6 +27,7 @@ defmodule PhoenixTodoWeb.Router do
       resources "/entries", EntryController, except: [:new, :edit]
       resources "/categories", CategoryController, except: [:new, :edit]
       resources "/accounts", AccountController, except: [:new, :edit]
+      get "/export", EntryController, :export
     end
   end
 

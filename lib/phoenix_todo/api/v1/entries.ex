@@ -39,6 +39,7 @@ defmodule PhoenixTodo.Api.V1.Entries do
         {"until", until}, query -> from e in query, where: e.date <= ^until
         {"type", "expense"}, query -> from e in query, where: e.amount < 0
         {"type", "income"}, query -> from e in query, where: e.amount > 0
+        _, query -> query
       end)
 
     Repo.all(query)
