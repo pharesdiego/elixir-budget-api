@@ -49,6 +49,10 @@ defmodule PhoenixTodoWeb.Api.V1.EntryController do
       "content-disposition",
       "attachment; filename=\"export.#{get_format(conn)}\""
     )
+    |> put_resp_header(
+      "access-control-allow-origin",
+      "*"
+    )
     |> render(:index, entries: entries)
   end
 end

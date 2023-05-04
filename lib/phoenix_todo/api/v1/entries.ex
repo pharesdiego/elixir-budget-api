@@ -29,7 +29,7 @@ defmodule PhoenixTodo.Api.V1.Entries do
         join: acc in Account,
         on: e.account == acc.id,
         select: %{e | category: cat, account: acc},
-        limit: 500,
+        limit: 1000,
         order_by: [desc: e.date]
 
     query = params
@@ -37,8 +37,8 @@ defmodule PhoenixTodo.Api.V1.Entries do
       |> Enum.reduce(query, fn
         {"from", from}, query -> from e in query, where: e.date >= ^from
         {"until", until}, query -> from e in query, where: e.date <= ^until
-        {"type", "expense"}, query -> from e in query, where: e.amount < 0
-        {"type", "income"}, query -> from e in query, where: e.amount > 0
+        {"include", ["expense"]}, query -> from e in query, where: e.amount < 0.0
+        {"include", ["income"]}, query -> from e in query, where: e.amount > 0.0
         _, query -> query
       end)
 
