@@ -65,7 +65,22 @@ defmodule PhoenixTodo.Api.V1.Entries do
       ** (Ecto.NoResultsError)
 
   """
-  def get_entry!(id), do: Repo.get!(Entry, id)
+  def get_entry!(id) do
+    query = from e in Entry,
+      join: cat in Category,
+      on: e.category == cat.id,
+      join: acc in Account,
+      on: e.account == acc.id,
+      select: %{e | category: cat, account: acc},
+      where: e.id == ^id
+
+    entry = Repo.one!(query)
+
+    Map.merge(entry, %{
+      category: CategoryJSON.show(%{category: entry.category}).data,
+      account: AccountJSON.show(%{account: entry.account}).data
+    })
+  end
 
   @doc """
   Creates a entry.

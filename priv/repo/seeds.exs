@@ -17,19 +17,15 @@ defmodule SeedCategories do
 
   @categories [
     %{
-      icon: "camera",
-      name: "Photography"
+      icon: "sports-tennis",
+      name: "Sports"
     },
     %{
-      icon: "globe-asia-australia",
+      icon: "airplane-mode-activate",
       name: "Travel"
     },
     %{
-      icon: "language",
-      name: "Language course"
-    },
-    %{
-      icon: "gift",
+      icon: "folder-special",
       name: "Gifts"
     }
   ]
@@ -50,15 +46,15 @@ defmodule SeedAccounts do
 
   @accounts [
     %{
-      icon: "chart-bar",
+      icon: "attach-money",
       name: "Investments"
     },
     %{
-      icon: "credit-card",
+      icon: "payment",
       name: "Credit card"
     },
     %{
-      icon: "currency-dollars",
+      icon: "attach-money",
       name: "Savings"
     }
   ]
