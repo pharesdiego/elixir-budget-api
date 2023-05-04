@@ -25,8 +25,9 @@ defmodule PhoenixTodoWeb.Api.V1.EntryController do
     render(conn, :show, entry: entry)
   end
 
-  def update(conn, %{"id" => id, "entry" => entry_params}) do
+  def update(conn, params = %{"id" => id}) do
     entry = Entries.get_entry!(id)
+    entry_params = Map.delete(params, "id")
 
     with {:ok, %Entry{} = entry} <- Entries.update_entry(entry, entry_params) do
       render(conn, :show, entry: entry)
@@ -37,7 +38,8 @@ defmodule PhoenixTodoWeb.Api.V1.EntryController do
     entry = Entries.get_entry!(id)
 
     with {:ok, %Entry{}} <- Entries.delete_entry(entry) do
-      send_resp(conn, :no_content, "")
+      conn
+      |> send_resp(:no_content, "")
     end
   end
 
@@ -48,10 +50,6 @@ defmodule PhoenixTodoWeb.Api.V1.EntryController do
     |> put_resp_header(
       "content-disposition",
       "attachment; filename=\"export.#{get_format(conn)}\""
-    )
-    |> put_resp_header(
-      "access-control-allow-origin",
-      "*"
     )
     |> render(:index, entries: entries)
   end
